@@ -1,0 +1,102 @@
+<Button>
+    font_size:10
+    size_hint:(0.3,0.3)
+    background_normal:''
+    background_color:(0,0,1,1)
+
+<TextInput>
+    font_size:20
+    background_color:(1,0,1,1)
+
+<minhatela>
+
+    canvas.before:
+        Color:
+            rgba:(1,1,1,0.3)
+        Rectangle:
+            size:self.size
+            pos:self.pos
+    BoxLayout:
+        orientation:'vertical'
+        size: root.width, root.height
+        padding: 10
+        spacing: 10
+
+
+        Image:
+            source:'americachavez.jpg'
+            allow_stretch: True
+        Label:
+            id:teste
+            text:'nome'
+            font_size:24
+            background_color:(10/255, 16/255, 94/255,1)
+            canvas.before:
+                Color: 
+                    rgba:self.background_color
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+                #propiedades do texto
+            color: (1,0,1,1)
+            bold: True
+            italic:True
+            outline_color:(1,0,0,0)
+            outline_width:10
+        TextInput:
+            id:nome
+            text:'text'
+
+        Label:
+            text:'turma'
+            background_color:(4/255, 130/255, 42/255,1)
+            canvas.before:
+                Color:
+                    rgba:self.background_color
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+
+        TextInput:
+            id:turma
+            text:'text'
+
+        Label:
+            text:'curso'
+            background_color:(0, 155/255, 163/255,1)
+            canvas.before:
+                Color:
+                    rgba:self.background_color
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+        TextInput:
+            id:curso
+            text:'text'
+
+        Button:
+            id:fan
+            text: 'fã'
+            pos_hint: {'x':0.1, 'y':0.7}
+
+        Button:
+            id:hate
+            text: 'hate'
+            pos_hint: {'x':0.1,'y':0.5}
+        
+        Button:
+            id:fan
+            text: 'te amo'
+            pos_hint: {'x':0.7, 'y':0.7}
+
+        Button:
+            id:hate
+            text: 'te odeio'
+            pos_hint: {'x':0.7,'y':1}
+            #não sei como fazer essa conexão entre as funções dos dois arquivos
+           # on_press: self.trocarnome
+        Image:
+            source: 'miss_ferro.jpg'
+            #Ao que parece, a imagem vai fica do tamanho da Label porém vai parar quando 
+            # a borda for atingida, tanto vertical quanto horizontalmente.
+            size: self.texture_size
