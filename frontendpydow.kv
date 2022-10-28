@@ -1,0 +1,34 @@
+<widgets>
+    BoxLayout:
+        orientation:'vertical'
+        size:root.width,root.height
+        cols: 2
+        TextInput:
+            id: linkinput
+            halign: 'left'
+            size_hint: (1, 0.1)
+
+        GridLayout:
+            cols:2
+            rows: 2
+
+            Label:
+                text:'titulo'
+
+            Label:
+                text:'likes'
+
+            Label:
+                text:'data de p'
+
+            Label:
+                text:'views'
+        
+        Label:
+            text: 'imagens'
+        
+        Button:
+            text:'baixar video'
+
+        Button:
+            text: 'baixar musica'
