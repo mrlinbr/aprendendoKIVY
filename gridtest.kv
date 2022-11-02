@@ -1,0 +1,56 @@
+<minhatela>
+#floatlayout me permite posicioner os widgets ao meu bem querer, de manerra relativa as bordas e seguindo as orientações X-Y
+    FloatLayout:
+        size:root.width,root.height
+
+        Button:
+            font_size:32
+            text:'aperte aqui\n para baixar \n essa porra'
+            #aqui digo que o tamanho dele será de 50% da tela na posição X e 30% na posição Y, essa regra vale para todos os outros widgets
+            size_hint:(0.5,0.3)
+            #no pos_hint eu digo que posição dele no eixo X  vai ser de 0% (direita para esquerda) e também 0% no eixo Y, ficando assim no canto superior esquerdo.
+            pos_hint:{'x':.0,'y':.0}
+            #isso diz que ao pressionar, ele executa a função 'pressionar lá no kivytest.py'
+            on_press:root.pressionar()
+
+        TextInput:
+            #o ID serve para identificar o widget la no arquivo.py pelo 'self.ids.xxxxx.yyy' sendo x a função e y aquilo que você quer dela
+            id:inputa
+            font_size:32
+            text:''
+            size_hint:(0.5,0.3)
+            pos_hint:{'x':.0,'y':.3}
+
+        Label:
+            id:label
+            text:'isso aqui vai atualizar'
+            font_size:32
+            size_hint:(0.5,0.3)
+            pos_hint:{'x':.0,'y':.6}
+
+        Image:
+            #aqui é um widget de imagem normal, que eu apenas dou o source (onde a imagem se encontra) e determino a posição e tamanho
+            source:'projetoskv\pewdiepieYTlogo.png'
+            pos_hint:{'x':.5,'y':0.6}
+            size_hint:(0.5,0.3)
+
+        AsyncImage:
+            #neste aqui, eu peço enacarecidamente que ele pegue a imagem que está no link que eu dou pra ele (la ele) e mostre, isso é incrivel
+            id:imagemcoisada
+            size_hint:(0.5,0.3)
+            pos_hint:{'x':.5,'y':.6}
+            source:''
+
+        Label:
+            id:likes
+            text:'likes:'
+            size_hint:(0.5,0.2)
+            pos_hint:{'x':.5,'y':.3}
+
+
+        Label:
+            id:views
+            text:'views'
+            size_hint:(0.5,0.2)
+            pos_hint:{'x':.5,'y':.0}
+
