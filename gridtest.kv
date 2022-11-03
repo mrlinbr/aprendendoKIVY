@@ -41,16 +41,21 @@
             pos_hint:{'x':.5,'y':.6}
             source:''
 
-        Label:
-            id:likes
-            text:'likes:'
-            size_hint:(0.5,0.2)
+        BoxLayout:
+            orientation:'vertical'
+            size_hint:(0.5,0.3)
             pos_hint:{'x':.5,'y':.3}
 
-
-        Label:
-            id:views
-            text:'views'
-            size_hint:(0.5,0.2)
+            Label:
+                id:likes
+                text:'{} likes'
+            Label:
+                id:views
+                text:'{} views'
+        Button:
+            id:musica
+            background_normal: 'pewdiepieYTlogo.png'
+            border:0,0,0,0
+            size_hint:(0.5,0.3)
             pos_hint:{'x':.5,'y':.0}
-
+            on_press:root.baixar_musica()
