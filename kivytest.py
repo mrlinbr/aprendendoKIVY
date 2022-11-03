@@ -19,21 +19,24 @@ class minhatela(Widget):
         self.ids.imagemcoisada.source = YouTube(self.video).thumbnail_url
         #Bom, aqui eu uso o try e except para lidar com erro da parte humana (se o usuario colocar o link de froma errada por exemplo)
         #O programa tenta fazer a função normalmente
-        try:
+        """try:
             #aqui é para baixar o video, onde eu peço a melhor resolução que tiver ( pretendo melhorar isso, pois abre espaço para erros)
             self.vid = YouTube(self.video).streams.get_highest_resolution().download()
         except:
             #caso algo ocorra errado, ele muda o texto da label para isso
-            self.ids.label.text='algo deu errado \n :( tente novamente'
+            self.ids.label.text='algo deu errado \n :( tente novamente' """
 
     def get_infos(self):
         #self.ids.likes.text=YouTube(self.video).views
-        print(YouTube(self.video).views)
+        print(YouTube(self.video).rating)
 
-
-class rodarkv(App):
-    def build(self):
-        return minhatela()
-
-if __name__=='__main__':
-    rodarkv().run()
+    def baixar_musica(self):
+        try:
+            print('calma ai, chefia')
+            ms=YouTube(self.ids.inputa.text)
+            self.ids.imagemcoisada.source= ms.thumbnail_url
+            msd=ms.streams.get_audio_only()
+            print('positivo capitão broxa')
+        except:
+            self.ids.label.text= 'algo deu errado \n reveja as informações'
+        #msd.download()
