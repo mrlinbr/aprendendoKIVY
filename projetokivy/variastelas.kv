@@ -1,0 +1,150 @@
+Gerenciador:
+    Telap:
+    Telatrad:
+    Telaytdown:
+    Musicplayer:
+
+<Telap>:
+    name:'telamenu'
+
+    FloatLayout:
+        size:root.width,root.height
+        Label:
+            text:'MHmusic'
+            size_hint:(0.3,0.2)
+            pos_hint:{'x':0.3,'y':0.8}
+
+        GridLayout:
+            cols:1
+            size_hint:(0.8,0.6)
+            pos_hint:{'x':0.2,'y':0.2}
+            Button:
+                text:'Tradutor'
+                size_hint:(0.5,0.5)
+                on_release:
+                    app.root.current = 'tradutor'
+                    root.manager.transition.direction = 'down'
+
+            Button:
+                text:'Download'
+                size_hint:(0.5,0.5)
+                on_release:
+                    app.root.current = 'telaytdown'
+                    root.manager.transition.direction = 'down'
+
+            Button:
+                text:'Music Player'
+                size_hint:(0.5,0.5)
+                on_release:
+                    app.root.current = 'mplayer'
+                    root.manager.transition.direction = 'down'
+        Label:
+            text:'by:MHM'
+            size_hint:(0.3,0.2)
+            pos_hint:{'x':0.3,'y':0.0}
+            
+                
+
+<Telatrad>:
+    name:'tradutor'
+    GridLayout:
+        cols:1
+        size:root.width,root.height
+        FloatLayout:
+            size_hint:(1.0,0.1)
+            TextInput:
+                id:nomemusica
+                text:''
+                font_size:20
+                size_hint:(0.8,1.0)
+                pos_hint:{'x':0,'y':0}
+
+            Button:
+                text:'V'
+                size_hint:(0.2,1.0)
+                pos_hint:{'x':0.8,'y':0}
+        GridLayout:
+            cols:2
+            size_hint:(1.0,0.7)
+            TextInput:
+                id:translation
+                text:'text...'
+            TextInput:
+                id:traducao
+                text:'texto...'
+        GridLayout:
+            cols:2
+            size_hint:(1.0,0.2)
+            Button:
+                text:'selecionar \n idioma'
+            Button:
+                text:'traduzir'
+
+<Telaytdown>:
+    name:'telaytdown'
+    
+    FloatLayout:
+        size:root.height,root.width
+        Label:
+            text:'digite aqui o link da musica/video'
+            size_hint: (.9,0.1)
+            pos_hint:{'x':0.05,'y':0.9}
+        TextInput:
+            id:link
+            text:''
+            multiline: False
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.1,'y':0.8}
+
+        AsyncImage:
+            source:None
+            size_hint:(0.4,0.3)
+            pos_hint:{'x':0.3,'y':0.5}
+
+        Label:
+            text: 'likes'
+            size_hint:(0.15,0.1)
+            pos_hint:{'x':0,'y':0.4}
+
+        Label:
+            text: 'meu jss como que muda a cor da Label'
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.15,'y':0.4}
+        Label:
+            text: 'views'
+            size_hint:(0.15,0.1)
+            pos_hint:{'x':0,'y':0.3}
+        Label:
+            text: 'meu jss como que muda a cor da Label'
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.15,'y':0.3}
+        Label:
+            text: 'tamanho'
+            size_hint:(0.15,0.1)
+            pos_hint:{'x':0,'y':0.2}
+        Label:
+            text: 'meu jss como que muda a cor da Label'
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.15,'y':0.2}
+
+        Button:
+            text:'baixar video'
+            size_hint:(0.3,0.2)
+            pos_hint:{'x':0,'y':0}
+        Button:
+            text:'baixar musica'
+            size_hint:(0.3,0.2)
+            pos_hint:{'x':0.3,'y':0}
+
+<Musicplayer>:
+    name:'mplayer'
+
+    BoxLayout:
+        size:root.width,root.height
+        orientation:'vertical'
+        Button:
+            text:'volta, essa porra nao tá pronta'
+            font_size:32
+            on_release: 
+                app.root.current='telamenu'
+                root.manager.transition.direction = 'up'
