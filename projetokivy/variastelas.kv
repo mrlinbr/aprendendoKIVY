@@ -3,41 +3,47 @@ Gerenciador:
     Telatrad:
     Telaytdown:
     Musicplayer:
+    Escolherdiretorio:
 
 <Telap>:
     name:'telamenu'
 
     FloatLayout:
         size:root.width,root.height
-        Label:
-            text:'MHmusic'
-            size_hint:(0.3,0.2)
-            pos_hint:{'x':0.3,'y':0.8}
+
+        Image:
+            source:'logomhmusic.jpg'
+            pos_hint:{'x':0.25,'y':0.8}
+            size_hint: (0.3,0.25)
+            allow_stretch:True
 
         GridLayout:
             cols:1
             size_hint:(0.8,0.6)
-            pos_hint:{'x':0.2,'y':0.2}
+            pos_hint:{'x':0.1,'y':0.2}
+            spacing:10
             Button:
                 text:'Tradutor'
                 size_hint:(0.5,0.5)
+                color: 1 , 0 , 0 , 1
                 on_release:
                     app.root.current = 'tradutor'
-                    root.manager.transition.direction = 'down'
+                    root.manager.transition.direction = 'up'
 
             Button:
                 text:'Download'
                 size_hint:(0.5,0.5)
+                
                 on_release:
                     app.root.current = 'telaytdown'
-                    root.manager.transition.direction = 'down'
+                    root.manager.transition.direction = 'up'
 
             Button:
                 text:'Music Player'
                 size_hint:(0.5,0.5)
                 on_release:
                     app.root.current = 'mplayer'
-                    root.manager.transition.direction = 'down'
+                    root.manager.transition.direction = 'up'
         Label:
             text:'by:MHM'
             size_hint:(0.3,0.2)
@@ -56,13 +62,21 @@ Gerenciador:
                 id:nomemusica
                 text:''
                 font_size:20
-                size_hint:(0.8,1.0)
-                pos_hint:{'x':0,'y':0}
+                size_hint:(0.7,1.0)
+                pos_hint:{'x':0.1,'y':0}
 
             Button:
                 text:'V'
                 size_hint:(0.2,1.0)
                 pos_hint:{'x':0.8,'y':0}
+
+            Button:
+                text:'voltar'
+                size_hint:(0.1,1.0)
+                pos_hint:{'x':0,'y':0}
+                on_release: 
+                    app.root.current = "telamenu"
+                    root.manager.transition.manager.direction='down'
         GridLayout:
             cols:2
             size_hint:(1.0,0.7)
@@ -85,6 +99,14 @@ Gerenciador:
     
     FloatLayout:
         size:root.height,root.width
+
+        Button:
+            text:'voltar'
+            size_hint:(0.1,0.1)
+            pos_hint:{'x':0,'y':0.9}
+            on_release: 
+                app.root.current = "telamenu"
+                root.manager.transition.manager.direction='down'
         Label:
             text:'digite aqui o link da musica/video'
             size_hint: (.9,0.1)
@@ -93,10 +115,12 @@ Gerenciador:
             id:link
             text:''
             multiline: False
+            font_size:32
             size_hint:(0.8,0.1)
             pos_hint:{'x':0.1,'y':0.8}
 
         AsyncImage:
+            id:thumb
             source:None
             size_hint:(0.4,0.3)
             pos_hint:{'x':0.3,'y':0.5}
@@ -119,32 +143,84 @@ Gerenciador:
             size_hint:(0.8,0.1)
             pos_hint:{'x':0.15,'y':0.3}
         Label:
-            text: 'tamanho'
+            text: 'titulo'
             size_hint:(0.15,0.1)
             pos_hint:{'x':0,'y':0.2}
         Label:
+            id:titulo
+            canvas.before:
             text: 'meu jss como que muda a cor da Label'
             size_hint:(0.8,0.1)
             pos_hint:{'x':0.15,'y':0.2}
+            canvas.before:
+                Color:
+                    rgba:(1,1,1,0.3)
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
 
         Button:
             text:'baixar video'
             size_hint:(0.3,0.2)
             pos_hint:{'x':0,'y':0}
+            on_press: root.informacoes()
+            on_release: root.baixar()
         Button:
             text:'baixar musica'
             size_hint:(0.3,0.2)
             pos_hint:{'x':0.3,'y':0}
+            on_release:root.baixarmsc()
+
+        Button:
+            text:'escolher diretorio'
+            on_release:app.root.current = 'escolherarquiv'
+            size_hint: (0.05,0.1)
+            pos_hint:{'x':0.95,'y':0.3}
+
+        Button:
+            text:'printar arquivos no diretorio'
+            size_hint:(0.3,0.2)
+            pos_hint:{'x':0.5,'y':0}
+            on_release:root.escolhido()
+
 
 <Musicplayer>:
     name:'mplayer'
 
+    RelativeLayout:
+        size:self.width,self.height
+        canvas.before:
+            Color:
+                rgba:(0,1,0,1)
+            Rectangle:
+                size:self.size
+                pos:self.pos
+
+        Button:
+            text:'play'
+            size_hint: .1,.1
+            pos_hint:{'center_x':0.4,'center_y':0.05}
+            on_press:root.sla()
+
+        Button:
+            text:'stop'
+            size_hint: .1,.1
+            pos_hint:{'center_x':0.55,'center_y':0.05}
+<Escolherdiretorio>:
+    id:escdir
+    name:'escolherarquiv'
     BoxLayout:
         size:root.width,root.height
         orientation:'vertical'
+
+        ToggleButton:
+            id:nsei
+            text:'teste'
+        
         Button:
-            text:'volta, essa porra nao tá pronta'
-            font_size:32
-            on_release: 
-                app.root.current='telamenu'
-                root.manager.transition.direction = 'up'
+            text:'printar'
+            on_press:root.escolhido()
+
+        FileChooserIconView:
+            id:arquivo
+            on_selection:escdir.selected(arquivo.selection)
