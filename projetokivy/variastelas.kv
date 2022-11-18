@@ -200,12 +200,17 @@ Gerenciador:
             text:'play'
             size_hint: .1,.1
             pos_hint:{'center_x':0.4,'center_y':0.05}
-            on_press:root.sla()
+            on_press:root.tocarmusica()
 
         Button:
             text:'stop'
             size_hint: .1,.1
             pos_hint:{'center_x':0.55,'center_y':0.05}
+            on_press:root.pararmusica()
+
+        TextInput:
+            id:caminho
+            text:'apague e digite o diretorio de sua musica'
 <Escolherdiretorio>:
     id:escdir
     name:'escolherarquiv'
