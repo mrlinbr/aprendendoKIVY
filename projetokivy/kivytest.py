@@ -1,9 +1,12 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.core.window import Window
+from kivy.core.audio import SoundLoader
+from tkinter import filedialog
 from pytube import YouTube
 import pytube
-from kivy.core.window import Window
+
 from time import sleep
 import os
 
@@ -27,10 +30,8 @@ class Telaytdown(Screen):
         print('saporra funfou krl')
         
         try:
-            #aqui é para baixar o video, onde eu peço a melhor resolução que tiver ( pretendo melhorar isso, pois abre espaço para erros)
             self.vid = YouTube(self.video).streams.get_highest_resolution().download()
         except:
-            #caso algo ocorra errado, ele muda o texto da label para isso
             self.ids.label.text='algo deu errado \n :( tente novamente'
         
     def escolhido(self,filename):
@@ -54,12 +55,25 @@ class Telaytdown(Screen):
         
 class Musicplayer(Screen):
     def sla(self):
-        self.path = "C:/kivygui"
-        self.list = os.listdir(self.path)
-        
-        self.listamusicas = [x for x in self.list if x.endswith(('mp4'))]
-        print(self.listamusicas)
+        try:
+            self.path = self.ids.caminho.text
+            self.list = os.listdir(self.path)
+            
+            self.listamusicas = [x for x in self.list if x.endswith(('mp3'))]
+            print(self.listamusicas)
+            self.num_musicas = len(self.listamusicas)
+        except:
+            self.ids.caminho.text = 'ocorreu algum erro, tente reformular o diretorio'
 
+    def tocarmusica(self, obj):
+        from random import randrange
+        self.msctitulo = self.song[randrange(0,self.num_musicas)]
+        self.msc = SoundLoader.load('{}/{}'.format(self.path,self.msctitulo))
+
+        self.msc.play()
+
+    def pararmusica(self,obj):
+        self.msc.stop()
 
 class Gerenciador(ScreenManager):
     pass
