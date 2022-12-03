@@ -1,0 +1,281 @@
+Gerenciador:
+    Telap:
+    Telatrad:
+    Telaytdown:
+    MusicPlayer:
+    Escolherdiretorio:
+
+<Telap>:
+    name:'telamenu'
+
+    FloatLayout:
+        size:root.width,root.height
+
+        Image:
+            source:'logomhmusic.jpg'
+            pos_hint:{'x':0.25,'y':0.8}
+            size_hint: (0.3,0.25)
+            allow_stretch:True
+
+        GridLayout:
+            cols:1
+            size_hint:(0.8,0.6)
+            pos_hint:{'x':0.1,'y':0.2}
+            spacing:10
+
+            Button:
+                text:'Download'
+                size_hint:(0.5,0.5)
+                
+                on_release:
+                    app.root.current = 'telaytdown'
+                    root.manager.transition.direction = 'up'
+
+            Button:
+                text:'Music Player'
+                size_hint:(0.5,0.5)
+                on_release:
+                    app.root.current = 'mplayer'
+                    root.manager.transition.direction = 'up'
+
+            Button:
+                text:'mover arquivos'
+                size_hint:(0.5,0.5)
+                on_press:
+                    root.escolherdir()
+
+        Label:
+            text:'by:MHM'
+            size_hint:(0.3,0.2)
+            pos_hint:{'x':0.3,'y':0.0}
+            
+                
+
+<Telaytdown>:
+    name:'telaytdown'
+    
+    FloatLayout:
+        size:root.height,root.width
+
+        Button:
+            text:'voltar'
+            size_hint:(0.1,0.05)
+            pos_hint:{'x':0,'y':0.9}
+            on_release: 
+                app.root.current = "telamenu"
+                root.manager.transition.manager.direction='down'
+        TextInput:
+            id:link
+            text:''
+            multiline: False
+            font_size:32
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.1,'y':0.9}
+        Button:
+            text:'SRC'
+            size_hint:(0.1,0.05)
+            pos_hint:{'x':0.9,'y':0.9}
+            on_press:root.informacoes()
+        AsyncImage:
+            id:thumb
+            source:None
+            size_hint:(0.6,0.3)
+            pos_hint:{'x':0,'y':0.6}
+
+        Label:
+            text: 'titulo:'
+            size_hint:(0.15,0.1)
+            pos_hint:{'x':0,'y':0.5}
+        Label:
+            id:titulo
+            canvas.before:
+            text: 'titulo aparecerá aqui'
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.15,'y':0.5}
+            canvas.before:
+                Color:
+                    rgba:(1,1,1,0.3)
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+        
+        Label:
+            text: 'views'
+            size_hint:(0.15,0.1)
+            pos_hint:{'x':0,'y':0.4}
+        Label:
+            canvas.before:
+            text: 'quantidade de likes'
+            size_hint:(0.8,0.1)
+            pos_hint:{'x':0.15,'y':0.4}
+            canvas.before:
+                Color:
+                    rgba:(1,1,1,0.3)
+                Rectangle:
+                    size:self.size
+                    pos:self.pos
+
+        Button:
+            text:'baixar video'
+            size_hint:(0.45,0.2)
+            pos_hint:{'x':0,'y':0.2}
+            on_release: root.baixar()
+        Button:
+            text:'baixar musica'
+            size_hint:(0.45,0.2)
+            pos_hint:{'x':0.45,'y':0.2}
+            on_release:root.baixarmsc()
+
+        Button:
+            text:'converter musica'
+            on_release:app.root.current = 'escolherarquiv'
+            size_hint: (0.05,0.1)
+            pos_hint:{'x':0.95,'y':0.1}
+            on_press:root.Convertermsc()   
+<Convertermsc>:
+    BoxLayout:
+        size: root.size
+        pos:root.pos
+        orientation: 'vertical'
+        FileChooserIconView:
+            id: converter
+        BoxLayout:
+            size_hint_y:None
+            height:30
+            Button:
+                text:'converter musica selecionada'
+                on_release: pass
+            
+
+<MusicPlayer>:
+    name:'mplayer'
+    canvas.before:
+        Color:
+            rgba: 0, 0, .1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    FloatLayout:
+        size:root.height,root.width
+        TextInput:
+            id: direct
+            hint_text:'text'
+            pos_hint: {'x':0.2,'y':0.85}
+            size_hint: (0.6,0.15)
+        Button:
+            text:'voltar'
+            pos_hint:{'x':0,'y':0.85}
+            size_hint:(0.2,0.15)
+            on_release:
+                app.root.current = "telamenu"
+                root.manager.transition.manager.direction='down'
+        Button:
+            id: searchBtn
+            text: 'Browse'
+            size_hint:(0.2,0.15)
+            pos_hint:{'x':0.8,'y':0.85}
+            on_release: root.getSongs()
+        ScrollView:
+            size_hint: (None,None)
+            size: (root.width,0.135)
+            pos_hint:{'x':0,'y':0.1}
+            GridLayout:
+                id:scroll
+                cols:2
+                spacing: 10 
+                size_hint_y: None
+                row_force_default:True
+                row_default_height:40
+        GridLayout:
+            rows: 1
+            size_hint:(1,0.05)
+            pos_hint: {'x':0,'y':0.05}
+            Button:
+                text: '<--'
+                background_color: 0,.5,1,1
+            Button:
+                text: '||'
+                background_color: 0,.5,1,1
+            Button:
+                text: '-->'
+                background_color: 0,.5,1,1
+    Button:
+        id: nowplay
+        text:'NOw playibnf'
+        pos_hint:{'x':0,'y':0}
+        size_hint:(1,0.05)
+        background_color:0,.5,1,1
+    Label:
+        id:status
+        text:''
+        center: root.center
+<ChooseFile>:
+    canvas.before:
+        Color:
+            rgba:0,0,0.4,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size:root.size
+        pos:root.pos
+        orientation:'vertical'
+        FileChooserIconView:
+            id:filechooser
+        BoxLayout:
+            size_hint_y:None
+            height:30
+            Button:
+                text:'Cancel'
+                background_color:0,.5,1,1
+                on_release:root.cancel()
+            Button:
+                text:'select foder'
+                background_color: 0,.5,1,1
+                on_release: root.select(filechooser.path)
+
+
+<ChooseFile>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, .4, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                background_color: 0,.5,1,1
+                on_release: root.cancel()
+            Button:
+                text: "Select Folder"
+                background_color: 0,.5,1,1
+                on_release: root.select(filechooser.path)
+
+<Escolherdiretorio>:
+    id:escdir
+    name:'escolherarquiv'
+    BoxLayout:
+        size:root.width,root.height
+        orientation:'vertical'
+
+        ToggleButton:
+            id:nsei
+            text:'teste'
+        
+        Button:
+            text:'printar'
+            on_press:root.escolhido()
+
+        FileChooserIconView:
+            id:arquivo
+            on_selection:escdir.selected(arquivo.selection)
